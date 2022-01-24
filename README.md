@@ -1,7 +1,9 @@
 # JFC-3
 Machine Learning Pipelines for Computer Vision in Construction
 
-pipeline.py and utils.py are the two key Python scripts that will be utilised for Azure later on. 
+pipeline.py and utils.py are the two key Python scripts containing the pipeline + Model that will be utilised for Azure later on. 
+
+DISCLAIMER: Unsure what file(s) will be uploaded to Azure in the end. Will investigate.
 
 interactive.py is the Python script that demonstrates how each TFX component works (expanded version of pipeline.py).
 
