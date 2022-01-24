@@ -24,6 +24,7 @@ def _transformed_name(key):
 def _gzip_reader_fn(filenames):
     return tf.data.TFRecordDataset(filenames, compression_type='GZIP')
 
+
 def _image_parser(image_str):
     image = tf.image.decode_image(image_str, channels=3)
     image = tf.reshape(image, (IMAGE_SIZE, IMAGE_SIZE, 3))
@@ -79,7 +80,7 @@ def _build_keras_model() -> tf.keras.Model:
 
 def _get_serve_tf_examples_fn(model, tf_transform_output):
     """Returns a function that parses a serialized tf.Example and applies TFT."""
-
+ 
     model.tft_layer = tf_transform_output.transform_features_layer()
 
     @tf.function
