@@ -1,7 +1,7 @@
 # NOTE: PLEASE REFER TO THE FINAL REPORT OF GROUP 3 TO UNDERSTAND THE THEORY BEHIND THE PIPELINE.
 
 # **File structure**
-Each directory contains a minimum of 4 files (Eedorenko, 2020): 
+Each directory contains a minimum of 4 files: 
 - Build.sh
 - DockerFile
 - Requirements.txt
