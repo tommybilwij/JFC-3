@@ -35,7 +35,7 @@ pipeline.py must be executed in order to create pipeline.py.tar.gz, a file requi
 
 http://33830fd9-e1ed-44e0-958f-ba6be7c798be.eastus.azurecontainer.io/score?image=<Image URL>
 
-Then replace “<Image URL>” with the image you wish to classify.
+Then replace “<Image_URL>” with the image you wish to classify.
 
 # **Output**
 As of the current stage, the output is a dictionary with 16 key-value pairs. The first is the time taken to run. The second is the category it predicts. The third is its confidence, or accuracy measure. The 4th to 16th is the degree of confidence to which the model believes could fit in all 13 categories. Sample output:
