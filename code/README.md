@@ -31,11 +31,60 @@ Inferenceconfig.json outlines the requirements for this inference test, specifyi
 
 
 # **Using the Pipeline**
+
+## **Test each component locally**
+
+
+## **Publish containerised docker image to Container Registry**
+
+Set the path in Container Registry that you want to push the containers to:
+<!-- export REGISTRY_PATH=<REGISTRY_NAME>.azurecr.io -->
+Registry name: kubeflowstorage
+
+Run the following command to authenticate your Container Registry:
+<!-- az acr login --name <REGISTRY_NAME> -->
+Registry name: kubeflowstorage
+
+Create a version, to be associated with your model each time it runs (change this accordingly):
+<!-- export VERSION_TAG=3 -->
+
+Each docker image will be built and uploaded to the cloud using the Container Registry.
+Run these commands to build images, and push them to Azure’ Container registry (make sure your local computer has enough storage)
+<!-- cd data_collection
+docker build . -t ${REGISTRY_PATH}/data_collection:${VERSION_TAG}
+docker push ${REGISTRY_PATH}/data_collection:${VERSION_TAG}
+
+cd ../preprocess_training
+docker build . -t ${REGISTRY_PATH}/preprocess_training:${VERSION_TAG}
+docker push ${REGISTRY_PATH}/preprocess_training:${VERSION_TAG}
+
+cd ../register
+docker build . -t ${REGISTRY_PATH}/register:${VERSION_TAG}
+docker push ${REGISTRY_PATH}/register:${VERSION_TAG}
+
+cd ../deploy
+docker build . -t ${REGISTRY_PATH}/deploy:${VERSION_TAG}
+docker push ${REGISTRY_PATH}/deploy:${VERSION_TAG} -->
+
+## **Upload pipeline.py.tar.gz to Kubeflow Dashboard **
+
+Access Kubeflow dashboard 
+<!-- kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 -->
+Go to http://localhost:8080 
+
 pipeline.py must be executed in order to create pipeline.py.tar.gz, a file required by Kubernetes. This scoring URL can be found once we publish the pipeline to AKS using the Kubeflow dashboard and successfully execute the experiment.
 
 http://33830fd9-e1ed-44e0-958f-ba6be7c798be.eastus.azurecontainer.io/score?image=<Image_URL> 
 
 Then replace “<Image_URL>” with the image you wish to classify.
+
+## **Debugging method if deployment fails**
+
+
+## **Run experiment **
+
+Check all outputs are nicely deployed
+- 
 
 # **Output**
 As of the current stage, the output is a dictionary with 16 key-value pairs. The first is the time taken to run. The second is the category it predicts. The third is its confidence, or accuracy measure. The 4th to 16th is the degree of confidence to which the model believes could fit in all 13 categories. Sample output:
