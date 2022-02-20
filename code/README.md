@@ -46,9 +46,17 @@ Register component  <br />
 Deploy component  <br />
 *Go to debugging section*
 
-
 ## **Publish containerised docker image to Container Registry**
 
+Login into AZ account and subscription
+*az login*
+*az account set --subscription <NAME OR ID OF SUBSCRIPTION>*
+Subscription ID: 03363605-92a3-4526-9b82-a1dcbe5983bc
+  
+Get the AKS cluster credential
+*az aks get-credentials -n <NAME> -g <RESOURCE_GROUP_NAME>*
+Name: clusterlor || Resource group: resourcetfx
+  
 Set the path in Container Registry that you want to push the containers to:  <br />
 *export REGISTRY_PATH=<REGISTRY_NAME>.azurecr.io
 Registry name: kubeflowstorage*
@@ -91,6 +99,12 @@ http://33830fd9-e1ed-44e0-958f-ba6be7c798be.eastus.azurecontainer.io/score?image
 Then replace “<Image_URL>” with the image you wish to classify.
 
 ## **Debugging method if deployment fails**
+
+During deployment process, the log dashboard will appear in Kubeflow Dashboard for that experiment run:
+<img width="966" alt="Screen Shot 2022-02-21 at 10 04 38 am" src="https://user-images.githubusercontent.com/53250006/154868325-983fbf64-7254-4b5b-a969-4b3504935fbd.png">
+
+If error appears, deploy container can be debugged locally:
+
 
 
 ## **Run experiment**
