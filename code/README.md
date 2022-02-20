@@ -35,53 +35,53 @@ Inferenceconfig.json outlines the requirements for this inference test, specifyi
 ## **Test each component locally**
 
 Data collection component
-<!-- python3 data.py -->
+*python3 data.py*
 
 Preprocess and training component 
-<!-- python3 train.py -->
+*python3 train.py
 
 Register component 
-<!-- python register.py --model_path v --model_name c --tenant_id c --service_principal_id v --service_principal_password v --subscription_id v --resource_group x --workspace c -->
+*python register.py --model_path v --model_name c --tenant_id c --service_principal_id v --service_principal_password v --subscription_id v --resource_group x --workspace c
 
 Deploy component
-<!-- go to debugging section -->
+*Go to debugging section
 
 
 ## **Publish containerised docker image to Container Registry**
 
 Set the path in Container Registry that you want to push the containers to:
-<!-- export REGISTRY_PATH=<REGISTRY_NAME>.azurecr.io -->
+*export REGISTRY_PATH=<REGISTRY_NAME>.azurecr.io
 Registry name: kubeflowstorage
 
 Run the following command to authenticate your Container Registry:
-<!-- az acr login --name <REGISTRY_NAME> -->
+*az acr login --name <REGISTRY_NAME>
 Registry name: kubeflowstorage
 
 Create a version, to be associated with your model each time it runs (change this accordingly):
-<!-- export VERSION_TAG=3 -->
+*export VERSION_TAG=3
 
 Each docker image will be built and uploaded to the cloud using the Container Registry.
 Run these commands to build images, and push them to Azure’ Container registry (make sure your local computer has enough storage)
-<!-- cd data_collection
+*cd data_collection
 docker build . -t ${REGISTRY_PATH}/data_collection:${VERSION_TAG}
 docker push ${REGISTRY_PATH}/data_collection:${VERSION_TAG}
 
-cd ../preprocess_training
+*cd ../preprocess_training
 docker build . -t ${REGISTRY_PATH}/preprocess_training:${VERSION_TAG}
 docker push ${REGISTRY_PATH}/preprocess_training:${VERSION_TAG}
 
-cd ../register
+*cd ../register
 docker build . -t ${REGISTRY_PATH}/register:${VERSION_TAG}
 docker push ${REGISTRY_PATH}/register:${VERSION_TAG}
 
-cd ../deploy
+*cd ../deploy
 docker build . -t ${REGISTRY_PATH}/deploy:${VERSION_TAG}
 docker push ${REGISTRY_PATH}/deploy:${VERSION_TAG} -->
 
 ## **Upload pipeline.py.tar.gz to Kubeflow Dashboard**
 
 Access Kubeflow dashboard 
-<!-- kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 -->
+*kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80
 Go to http://localhost:8080 
 
 pipeline.py must be executed in order to create pipeline.py.tar.gz, a file required by Kubernetes. This scoring URL can be found once we publish the pipeline to AKS using the Kubeflow dashboard and successfully execute the experiment.
