@@ -111,7 +111,7 @@ Check model version in AZ ML Workspace:
 
 ## **Run experiment**
 
-Create an experiment, and start a run. Fill all the parameters (as specified in pipeline.py).
+Create an experiment, and start a run in Kubeflow dashboard for that pipeline. Fill all the parameters (as specified in pipeline.py).
 ![Screen Shot 2022-02-20 at 9 49 18 pm](https://user-images.githubusercontent.com/53250006/154868633-a749f8a7-ed1f-493f-9e45-eb55c28470f1.png)
   
 Outputs can be seen in AZ ML Workspace (Endpoint to see the container instances created, Model to see all the deployed models)
