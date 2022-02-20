@@ -94,7 +94,7 @@ Go to http://localhost:8080
 
 pipeline.py must be executed in order to create pipeline.py.tar.gz, a file required by Kubernetes. This scoring URL can be found once we publish the pipeline to AKS using the Kubeflow dashboard and successfully execute the experiment.
 
-http://33830fd9-e1ed-44e0-958f-ba6be7c798be.eastus.azurecontainer.io/score?image=<Image_URL> 
+http://b38f2a0b-8708-4e39-8539-cb57691ef197.eastus.azurecontainer.io/score?image=<Image_URL> 
 
 Then replace “<Image_URL>” with the image you wish to classify.
 
