@@ -49,12 +49,12 @@ Deploy component  <br />
 ## **Publish containerised docker image to Container Registry**
 
 Login into AZ account and subscription
-*az login*
-*az account set --subscription <NAME OR ID OF SUBSCRIPTION>*
+*az login* <br />
+*az account set --subscription <NAME OR ID OF SUBSCRIPTION>* <br />
 Subscription ID: 03363605-92a3-4526-9b82-a1dcbe5983bc
   
-Get the AKS cluster credential
-*az aks get-credentials -n <NAME> -g <RESOURCE_GROUP_NAME>*
+Get the AKS cluster credential <br />
+*az aks get-credentials -n <NAME> -g <RESOURCE_GROUP_NAME>* <br />
 Name: clusterlor || Resource group: resourcetfx
   
 Set the path in Container Registry that you want to push the containers to:  <br />
@@ -104,13 +104,18 @@ During deployment process, the log dashboard will appear in Kubeflow Dashboard f
 <img width="966" alt="Screen Shot 2022-02-21 at 10 04 38 am" src="https://user-images.githubusercontent.com/53250006/154868325-983fbf64-7254-4b5b-a969-4b3504935fbd.png">
 
 If error appears, deploy container can be debugged locally:
+*az ml model deploy -n <model_name> -m <model_name>:<model_version> --ic inferenceconfig.json --dc deploymentconfig.json --resource-group resourcetfx --workspace-name tfxkubeflow --overwrite -v*
 
-
+Check model version in AZ ML Workspace:
+<img width="1052" alt="Screen Shot 2022-02-21 at 10 13 02 am" src="https://user-images.githubusercontent.com/53250006/154868600-855bc6cf-67b9-4309-8937-c3b841346eb8.png">
 
 ## **Run experiment**
 
-Check all outputs are nicely deployed
-- 
+Create an experiment, and start a run. Fill all the parameters (as specified in pipeline.py).
+![Screen Shot 2022-02-20 at 9 49 18 pm](https://user-images.githubusercontent.com/53250006/154868633-a749f8a7-ed1f-493f-9e45-eb55c28470f1.png)
+  
+Outputs can be seen in AZ ML Workspace (Endpoint to see the container instances created, Model to see all the deployed models)
+<img width="1053" alt="Screen Shot 2022-02-21 at 10 15 09 am" src="https://user-images.githubusercontent.com/53250006/154868657-1928c75c-740e-45ee-a8b9-74a5e7320993.png">
 
 # **Output**
 As of the current stage, the output is a dictionary with 16 key-value pairs. The first is the time taken to run. The second is the category it predicts. The third is its confidence, or accuracy measure. The 4th to 16th is the degree of confidence to which the model believes could fit in all 13 categories. Sample output:
