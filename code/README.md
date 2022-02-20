@@ -62,26 +62,26 @@ Create a version, to be associated with your model each time it runs (change thi
 
 Each docker image will be built and uploaded to the cloud using the Container Registry.
 Run these commands to build images, and push them to Azure’ Container registry (make sure your local computer has enough storage)  <br />
-*cd data_collection
-docker build . -t ${REGISTRY_PATH}/data_collection:${VERSION_TAG}
+*cd data_collection  <br />
+docker build . -t ${REGISTRY_PATH}/data_collection:${VERSION_TAG}  <br />
 docker push ${REGISTRY_PATH}/data_collection:${VERSION_TAG}*
 
-*cd ../preprocess_training
-docker build . -t ${REGISTRY_PATH}/preprocess_training:${VERSION_TAG}
+*cd ../preprocess_training  <br />
+docker build . -t ${REGISTRY_PATH}/preprocess_training:${VERSION_TAG}  <br />
 docker push ${REGISTRY_PATH}/preprocess_training:${VERSION_TAG}*
 
-*cd ../register
-docker build . -t ${REGISTRY_PATH}/register:${VERSION_TAG}
+*cd ../register  <br />
+docker build . -t ${REGISTRY_PATH}/register:${VERSION_TAG}  <br />
 docker push ${REGISTRY_PATH}/register:${VERSION_TAG}*
 
-*cd ../deploy
-docker build . -t ${REGISTRY_PATH}/deploy:${VERSION_TAG}
+*cd ../deploy  <br /> 
+docker build . -t ${REGISTRY_PATH}/deploy:${VERSION_TAG} <br />
 docker push ${REGISTRY_PATH}/deploy:${VERSION_TAG}*
 
 ## **Upload pipeline.py.tar.gz to Kubeflow Dashboard**
 
 Access Kubeflow dashboard  <br />
-*kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80*
+*kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80*  <br />
 Go to http://localhost:8080 
 
 pipeline.py must be executed in order to create pipeline.py.tar.gz, a file required by Kubernetes. This scoring URL can be found once we publish the pipeline to AKS using the Kubeflow dashboard and successfully execute the experiment.
