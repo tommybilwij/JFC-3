@@ -34,6 +34,18 @@ Inferenceconfig.json outlines the requirements for this inference test, specifyi
 
 ## **Test each component locally**
 
+Data collection component
+<!-- python3 data.py -->
+
+Preprocess and training component 
+<!-- python3 train.py -->
+
+Register component 
+<!-- python register.py --model_path v --model_name c --tenant_id c --service_principal_id v --service_principal_password v --subscription_id v --resource_group x --workspace c -->
+
+Deploy component
+<!-- go to debugging section -->
+
 
 ## **Publish containerised docker image to Container Registry**
 
@@ -66,7 +78,7 @@ cd ../deploy
 docker build . -t ${REGISTRY_PATH}/deploy:${VERSION_TAG}
 docker push ${REGISTRY_PATH}/deploy:${VERSION_TAG} -->
 
-## **Upload pipeline.py.tar.gz to Kubeflow Dashboard **
+## **Upload pipeline.py.tar.gz to Kubeflow Dashboard**
 
 Access Kubeflow dashboard 
 <!-- kubectl port-forward svc/istio-ingressgateway -n istio-system 8080:80 -->
@@ -81,7 +93,7 @@ Then replace “<Image_URL>” with the image you wish to classify.
 ## **Debugging method if deployment fails**
 
 
-## **Run experiment **
+## **Run experiment**
 
 Check all outputs are nicely deployed
 - 
