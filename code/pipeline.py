@@ -9,7 +9,8 @@ import tensorflow as tf
   name='Construction LOR',
   description='Kubeflow Pipeline - SSL model'
 )
-def constructionlor(
+def constructionlors(
+    # These are the input parameters that user needs to set in Kubeflow dashboard
     tenant_id,
     service_principal_id,
     service_principal_password,
@@ -17,15 +18,17 @@ def constructionlor(
     resource_group,
     workspace,
     EPOCHS,
+    model_version_to_deploy,
 ):
   """Pipeline steps"""
 
   ## Pipeline parameters
   persistent_volume_path = '/mnt/azure' # storage disk to store datasets and models
   data_download = 'https://dl.dropboxusercontent.com/s/at3s44al3n3kymo/construction_dataset.zip?dl=0' # get the zip file from dropbox
-  model_name = 'constructionlor'
+  model_name = 'constructionlors'
   operations = {}
   model_folder = 'model'
+  model_version = model_name+':'+str(model_version_to_deploy)
 
   ## Group 2 parameters 
   AUTO = tf.data.AUTOTUNE   # Tuneable hyperperameters
@@ -46,7 +49,7 @@ def constructionlor(
   # preprocess data
   operations['data collection'] = dsl.ContainerOp(
     name='data collection',
-    image='kubeflowstorage.azurecr.io/data_collection:2',
+    image='kubeflowstorage.azurecr.io/data_collection:3',
     command=['python'],
     arguments=[
       '/scripts/data.py',
@@ -58,7 +61,7 @@ def constructionlor(
   # preprocess and train
   operations['preprocess and training'] = dsl.ContainerOp(
     name='preprocess and training',
-    image='kubeflowstorage.azurecr.io/preprocess_training:2',
+    image='kubeflowstorage.azurecr.io/preprocess_training:3',
     command=['python'],
     arguments=[
       '/scripts/train.py',
@@ -83,7 +86,7 @@ def constructionlor(
   # register model
   operations['register'] = dsl.ContainerOp(
     name='register',
-    image='kubeflowstorage.azurecr.io/register:2',
+    image='kubeflowstorage.azurecr.io/register:3',
     command=['python'],
     arguments=[
       '/scripts/register.py',
@@ -116,7 +119,8 @@ def constructionlor(
       '-s', service_principal_id,
       '-p', service_principal_password,
       '-u', subscription_id,
-      '-b', persistent_volume_path
+      '-b', persistent_volume_path,
+      '-z', model_version,
     ]
   )
   operations['deploy'].after(operations['register'])
@@ -132,4 +136,4 @@ def constructionlor(
       mount_path='/mnt/azure', name='azure'))
 
 if __name__ == '__main__':
-  compiler.Compiler().compile(constructionlor, __file__ + '.tar.gz')
+  compiler.Compiler().compile(constructionlors, __file__ + '.tar.gz')

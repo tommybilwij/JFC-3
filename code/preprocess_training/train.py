@@ -298,19 +298,24 @@ class SimSiam(tf.keras.Model):
 
 
 def info(msg, char="#", width=75):
+    # print out to console in a beautiful way
     print("")
     print(char * width)
     print(char + "   %0*s" % ((-1 * width) + 5, msg) + char)
     print(char * width)
 
-# Check whether target directory exists
 def check_dir(path):
+    # Check whether target directory exists
     if not os.path.exists(path):
         os.makedirs(path)
     return Path(path).resolve(strict=False)
 
 
 def generate_hash(dfile, key):
+    """  implement a secure hash and message digest algorithms (SHA256: internal block size of 32 bits).
+        dfile    : file to be hashed (model file)
+        key      : tag value for dfile
+    """
     print('Generating hash for {}'.format(dfile))
     m = hmac.new(str.encode(key), digestmod=hashlib.sha256)
     BUF_SIZE = 65536
@@ -508,20 +513,6 @@ def run(
     return generate_hash(file_output, 'kf_pipeline')
 
 
-def generate_hash(dfile, key):
-    print('Generating hash for {}'.format(dfile))
-    m = hmac.new(str.encode(key), digestmod=hashlib.sha256)
-    BUF_SIZE = 65536
-    with open(str(dfile), 'rb') as myfile:
-        while True:
-            data = myfile.read(BUF_SIZE)
-            if not data:
-                break
-            m.update(data)
-
-    return m.hexdigest()
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description='transfer learning for binary image task')
@@ -561,13 +552,17 @@ if __name__ == "__main__":
     # Initialise path for dataset
     base_path = Path(args.base_path).resolve(strict=False)
 
+    # Initialise path  for nonlabelled dataset
     nonlabeled_input_folder = str(base_path)+'/new_nonlabelled' #for unsupervised learning, is stored in /mnt/azure/data/
 
+    # Initialise params to save parameters in json file
     params = Path(args.base_path).joinpath('params.json')
 
+    # Initialise target directory to store the trained model
     target_path = Path(args.base_path).resolve(
         strict=False).joinpath(args.outputs)
 
+    # Initialise various arguments (parameters)
     args = {
         "CROP_TO": args.CROP_TO,
         "nonlabeled_input_folder": nonlabeled_input_folder,
@@ -589,11 +584,13 @@ if __name__ == "__main__":
     for i in args:
         print('{} => {}'.format(i, args[i]))
 
+    # run the preprocessing and training methods from Group 2
     model_signature = run(**args)
 
-    args['dataset_signature'] = ''
     args['model_signature'] = model_signature.upper()
-    args['model_type'] = 'tfv2-MobileNetV2'
+    args['model_type'] = 'SSL-Resnet50'
+
+    # Save all parameters in json file
     print('Writing out params...', end='')
     with open(str(params), 'w') as f:
         json.dump(args, f)

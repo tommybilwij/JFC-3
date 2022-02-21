@@ -9,6 +9,7 @@ from azureml.core.authentication import ServicePrincipalAuthentication
 
 
 def info(msg, char="#", width=75):
+    # print out to console in a beautiful way
     print("")
     print(char * width)
     print(char + "   %0*s" % ((-1 * width) + 5, msg) + char)
@@ -17,6 +18,9 @@ def info(msg, char="#", width=75):
 
 def get_ws(tenant_id, service_principal_id,
            service_principal_password, subscription_id, resource_group, workspace):  # noqa: E501
+    """ To access the Azure Machine Learning Workspace
+        all args can be found in Azure Account Portal
+    """
     auth_args = {
         'tenant_id': tenant_id,
         'service_principal_id': service_principal_id,
@@ -33,6 +37,12 @@ def get_ws(tenant_id, service_principal_id,
 
 
 def run(mdl_path, model_name, ws, tgs):
+    """ Register the model in the Azure Machine Learning Workspace
+        mdl_path   : path directory to the model
+        model_name : name of the model
+        ws         : workspace access
+        tgs        : tags
+    """
     print(ws.get_details())
 
     print('\nSaving model {} to {}'.format(mdl_path, model_name))
@@ -52,7 +62,7 @@ if __name__ == "__main__":
     parser.add_argument(
         '-m', '--model', help='path to model file', default='/model/latest.h5')
     parser.add_argument('-n', '--model_name',
-                        help='AML Model name', default='construction')
+                        help='AML Model name', default='constructionlors')
     parser.add_argument('-t', '--tenant_id', help='tenant_id')
     parser.add_argument('-s', '--service_principal_id',
                         help='service_principal_id')

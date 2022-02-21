@@ -7,14 +7,18 @@ import wget
 
 import splitfolders
 
-# Check whether the target directory exists
+
 def check_dir(path):
+    # Check whether the target directory exists
     if not os.path.exists(path):
         os.makedirs(path)
     return Path(path).resolve(strict=False)
 
-# Download zip file from url link, and unzip it to pvc
 def download(source, target, force_clear=False):
+    """ Download zip file from url link, and unzip it to pvc
+        source   : source of dataset location 
+        target   : target to store the dataset
+    """
     if force_clear and os.path.exists(target):
         print('Removing {}...'.format(target))
         shutil.rmtree(target)
