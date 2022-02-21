@@ -98,6 +98,8 @@ http://b38f2a0b-8708-4e39-8539-cb57691ef197.eastus.azurecontainer.io/score?image
 
 Then replace “<Image_URL>” with the image you wish to classify.
 
+<img width="1159" alt="Screen Shot 2022-02-21 at 7 37 01 pm" src="https://user-images.githubusercontent.com/53250006/154918385-ca82863c-069a-4aba-8ac2-3721520b67fe.png">
+
 ## **Debugging method if deployment fails**
 
 During deployment process, the log dashboard will appear in Kubeflow Dashboard for that experiment run:
