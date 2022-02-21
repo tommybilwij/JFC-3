@@ -123,3 +123,5 @@ Outputs can be seen in AZ ML Workspace (Endpoint to see the container instances 
 As of the current stage, the output is a dictionary with 16 key-value pairs. The first is the time taken to run. The second is the category it predicts. The third is its confidence, or accuracy measure. The 4th to 16th is the degree of confidence to which the model believes could fit in all 13 categories. Sample output:
   
 {"time": 1.6e-05, "prediction": "rebar", "prediction_score": 1.0, "aerial shots_score": 0.0, "concrete_score": 0.0, "scaffolding_score": 0.0, "indoor furnishings_score": 0.0, "rebar_score": 1.0, "road_score": 0.0, "railway_score": 0.0, "fire damage_score": 0.0, "columns and beams_score": 0.0, "workers_score": 0.0, "plumbing_score": 0.0, "electrical detail_scores": 0.0, "machinery_score": 0.0}
+<img width="1200" alt="Screen Shot 2022-02-21 at 7 42 44 pm" src="https://user-images.githubusercontent.com/53250006/154921028-cef88c99-6885-4a7c-a41c-39c90e522a1a.png">
+
